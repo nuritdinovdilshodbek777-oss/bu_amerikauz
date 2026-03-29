@@ -3,20 +3,23 @@
 <head>
     <title>Бу АмерикаУЗ®</title>
 
-    <!-- 📱 MOBILE MUHIM -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
+        html { scroll-behavior: smooth; }
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f6f9;
             margin: 0;
+            transition: 0.3s;
         }
 
         /* 🔥 NAVBAR */
         .navbar {
             position: sticky;
             top: 0;
+            backdrop-filter: blur(10px);
             background: linear-gradient(90deg, #007BFF, #0056b3);
             padding: 15px;
             z-index: 1000;
@@ -26,17 +29,16 @@
             color: white;
             margin: 0;
             text-align: center;
-            margin-bottom: 10px;
         }
 
         .nav-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-top: 10px;
             flex-wrap: wrap;
         }
 
-        /* 🔍 SEARCH */
         .search-box input {
             padding: 8px;
             border-radius: 6px;
@@ -50,11 +52,9 @@
             background: white;
             color: #007BFF;
             border-radius: 6px;
-            margin-left: 5px;
             cursor: pointer;
         }
 
-        /* 🌙 DARK MODE BUTTON */
         #darkBtn {
             padding:6px 10px;
             border:none;
@@ -62,7 +62,24 @@
             cursor:pointer;
         }
 
-        /* 📂 CATEGORY NAV */
+        /* 🔗 MENU LINKS */
+        .menu-links {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .menu-links a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .menu-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* 📂 CATEGORY */
         .categories {
             margin-top: 10px;
             display: flex;
@@ -77,19 +94,10 @@
             text-decoration: none;
             background: rgba(255,255,255,0.2);
             color: white;
-            font-size: 14px;
-            transition: 0.2s;
         }
 
-        .categories a:hover {
-            background: white;
-            color: #007BFF;
-        }
-
-        /* 🔴 ACTIVE */
         .active-category {
             background: red !important;
-            color: white !important;
         }
 
         /* 📦 CONTENT */
@@ -102,113 +110,84 @@
         /* 📰 CARD */
         .article-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
         }
 
         .article-image {
             width: 100%;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        .article-card h2 {
-            margin: 10px 0;
-        }
-
-        .article-card a {
-            text-decoration: none;
-            color: #222;
-        }
-
-        .article-card a:hover {
-            color: #007BFF;
+            border-radius: 10px;
         }
 
         .stats {
-            margin-top: 10px;
             font-size: 0.9em;
             color: #555;
         }
 
         .empty {
             text-align: center;
-            color: gray;
+        }
+
+        /* 🔥 FOOTER */
+        .footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* 🔝 BACK TO TOP */
+        #topBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            padding: 10px;
+            border: none;
+            border-radius: 50%;
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
         }
 
         /* 🌙 DARK MODE */
         body.dark {
-            background-color: #121212;
-            color: #e4e4e4;
+            background: #121212;
+            color: white;
         }
 
         body.dark .article-card {
             background: #1e1e1e;
-            color: #e4e4e4;
         }
 
         body.dark .navbar {
-            background: linear-gradient(90deg, #111, #222);
+            background: #111;
         }
 
-        body.dark .categories a {
-            background: rgba(255,255,255,0.1);
-        }
-
-        body.dark .categories a:hover {
-            background: white;
-            color: black;
-        }
-
-        body.dark .stats {
-            color: #aaa;
-        }
-
-        body.dark input {
-            background: #222;
-            color: white;
-        }
-
-        body.dark button {
-            background: #333;
-            color: white;
-        }
-
-        /* 📱 MOBILE VERSION */
+        /* 📱 MOBILE */
         @media (max-width: 600px) {
-
             .nav-top {
                 flex-direction: column;
                 gap: 10px;
             }
 
-            .search-box input {
-                width: 100%;
-            }
-
-            .search-box button {
-                width: 100%;
-                margin-top: 5px;
-            }
-
+            .search-box input,
+            .search-box button,
             #darkBtn {
                 width: 100%;
-            }
-
-            .article-card h2 {
-                font-size: 18px;
-            }
-
-            .categories a {
-                font-size: 12px;
-                padding: 4px 8px;
             }
         }
 
     </style>
 </head>
+
 <body>
 
 <!-- 🔥 NAVBAR -->
@@ -217,24 +196,23 @@
     <h1>Бу АмерикаУЗ®</h1>
 
     <div class="nav-top">
-
-        <!-- 🔍 SEARCH -->
         <form method="get" class="search-box">
             <input type="text" name="q" placeholder="Qidirish..." value="{{ query|default:'' }}">
             <button type="submit">Qidirish</button>
         </form>
 
-        <!-- 🌙 DARK MODE -->
         <button onclick="toggleDark()" id="darkBtn">🌙</button>
+    </div>
 
+    <!-- 🔗 MENU -->
+    <div class="menu-links">
+        <a href="{% url 'contact' %}">📩 Contact</a>
+        <a href="{% url 'support' %}">🆘 Support</a>
     </div>
 
     <!-- 📂 CATEGORY -->
     <div class="categories">
-
-        <a href="?" class="{% if not selected_category %}active-category{% endif %}">
-            Barchasi
-        </a>
+        <a href="?" class="{% if not selected_category %}active-category{% endif %}">Barchasi</a>
 
         {% for category in categories %}
             <a href="?category={{ category.id }}"
@@ -242,7 +220,6 @@
                 {{ category.name }}
             </a>
         {% endfor %}
-
     </div>
 
 </div>
@@ -276,25 +253,33 @@
 
 </div>
 
-<!-- 🌙 SCRIPT -->
+<!-- 🔥 FOOTER -->
+<div class="footer">
+    <p>© 2026 Bu AmerikaUZ | All rights reserved</p>
+</div>
+
+<!-- 🔝 TOP BUTTON -->
+<button onclick="topFunction()" id="topBtn">↑</button>
+
 <script>
+// 🌙 DARK MODE
 function toggleDark() {
     document.body.classList.toggle("dark");
-
-    if (document.body.classList.contains("dark")) {
-        localStorage.setItem("theme", "dark");
-        document.getElementById("darkBtn").innerText = "☀️";
-    } else {
-        localStorage.setItem("theme", "light");
-        document.getElementById("darkBtn").innerText = "🌙";
-    }
 }
 
-window.onload = function() {
-    if (localStorage.getItem("theme") === "dark") {
-        document.body.classList.add("dark");
-        document.getElementById("darkBtn").innerText = "☀️";
+// 🔝 TOP BUTTON
+let btn = document.getElementById("topBtn");
+
+window.onscroll = function() {
+    if (document.documentElement.scrollTop > 200) {
+        btn.style.display = "block";
+    } else {
+        btn.style.display = "none";
     }
+};
+
+function topFunction() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
 
