@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Бу АмерикаУЗ®</title>
+
+    <!-- 📱 MOBILE MUHIM -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+        }
+
+        /* 🔥 NAVBAR */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(90deg, #007BFF, #0056b3);
+            padding: 15px;
+            z-index: 1000;
+        }
+
+        .navbar h1 {
+            color: white;
+            margin: 0;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .nav-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* 🔍 SEARCH */
+        .search-box input {
+            padding: 8px;
+            border-radius: 6px;
+            border: none;
+            width: 200px;
+        }
+
+        .search-box button {
+            padding: 8px 12px;
+            border: none;
+            background: white;
+            color: #007BFF;
+            border-radius: 6px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        /* 🌙 DARK MODE BUTTON */
+        #darkBtn {
+            padding:6px 10px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+        }
+
+        /* 📂 CATEGORY NAV */
+        .categories {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .categories a {
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .categories a:hover {
+            background: white;
+            color: #007BFF;
+        }
+
+        /* 🔴 ACTIVE */
+        .active-category {
+            background: red !important;
+            color: white !important;
+        }
+
+        /* 📦 CONTENT */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* 📰 CARD */
+        .article-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .article-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .article-card h2 {
+            margin: 10px 0;
+        }
+
+        .article-card a {
+            text-decoration: none;
+            color: #222;
+        }
+
+        .article-card a:hover {
+            color: #007BFF;
+        }
+
+        .stats {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .empty {
+            text-align: center;
+            color: gray;
+        }
+
+        /* 🌙 DARK MODE */
+        body.dark {
+            background-color: #121212;
+            color: #e4e4e4;
+        }
+
+        body.dark .article-card {
+            background: #1e1e1e;
+            color: #e4e4e4;
+        }
+
+        body.dark .navbar {
+            background: linear-gradient(90deg, #111, #222);
+        }
+
+        body.dark .categories a {
+            background: rgba(255,255,255,0.1);
+        }
+
+        body.dark .categories a:hover {
+            background: white;
+            color: black;
+        }
+
+        body.dark .stats {
+            color: #aaa;
+        }
+
+        body.dark input {
+            background: #222;
+            color: white;
+        }
+
+        body.dark button {
+            background: #333;
+            color: white;
+        }
+
+        /* 📱 MOBILE VERSION */
+        @media (max-width: 600px) {
+
+            .nav-top {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .search-box button {
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            #darkBtn {
+                width: 100%;
+            }
+
+            .article-card h2 {
+                font-size: 18px;
+            }
+
+            .categories a {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- 🔥 NAVBAR -->
+<div class="navbar">
+
+    <h1>Бу АмерикаУЗ®</h1>
+
+    <div class="nav-top">
+
+        <!-- 🔍 SEARCH -->
+        <form method="get" class="search-box">
+            <input type="text" name="q" placeholder="Qidirish..." value="{{ query|default:'' }}">
+            <button type="submit">Qidirish</button>
+        </form>
+
+        <!-- 🌙 DARK MODE -->
+        <button onclick="toggleDark()" id="darkBtn">🌙</button>
+
+    </div>
+
+    <!-- 📂 CATEGORY -->
+    <div class="categories">
+
+        <a href="?" class="{% if not selected_category %}active-category{% endif %}">
+            Barchasi
+        </a>
+
+        {% for category in categories %}
+            <a href="?category={{ category.id }}"
+               class="{% if selected_category == category.id|stringformat:'s' %}active-category{% endif %}">
+                {{ category.name }}
+            </a>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<!-- 📰 CONTENT -->
+<div class="container">
+
+    {% for article in articles %}
+        <div class="article-card">
+
+            {% if article.image %}
+                <img src="{{ article.image.url }}" class="article-image">
+            {% endif %}
+
+            <h2>
+                <a href="{% url 'article_detail' article.pk %}">
+                    {{ article.title }}
+                </a>
+            </h2>
+
+            <p>{{ article.content|truncatechars:200 }}</p>
+
+            <div class="stats">
+                👁 {{ article.views }} ta ko‘rildi
+            </div>
+
+        </div>
+    {% empty %}
+        <p class="empty">🔍 Hech narsa topilmadi</p>
+    {% endfor %}
+
+</div>
+
+<!-- 🌙 SCRIPT -->
+<script>
+function toggleDark() {
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+        document.getElementById("darkBtn").innerText = "☀️";
+    } else {
+        localStorage.setItem("theme", "light");
+        document.getElementById("darkBtn").innerText = "🌙";
+    }
+}
+
+window.onload = function() {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+        document.getElementById("darkBtn").innerText = "☀️";
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ article.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+        }
+
+        header {
+            background: linear-gradient(90deg, #007BFF, #0056b3);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .article-image {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .published {
+            font-size: 0.85em;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        /* 👁 Views */
+        .stats {
+            margin-top: 15px;
+            font-size: 0.95em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Бу АмерикаУЗ®</h1>
+</header>
+
+<div class="container">
+
+    <h2>{{ article.title }}</h2>
+
+    {% if article.image %}
+        <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-image">
+    {% endif %}
+
+    <p>{{ article.content|linebreaks }}</p>
+
+    <div class="published">
+        🕒 {{ article.published_at|date:"d M Y H:i" }}
+    </div>
+
+    <!-- 👁 faqat views -->
+    <div class="stats">
+        👁 {{ article.views }} marta ko‘rildi
+    </div>
+
+    <a class="back" href="{% url 'home' %}">
+        ← Orqaga
+    </a>
+
+</div>
+
+</body>
+</html>
