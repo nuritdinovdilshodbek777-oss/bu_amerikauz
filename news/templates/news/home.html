@@ -1,9 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="uz">
 <head>
-    <title>Бу АмерикаУЗ®</title>
 
+    <!-- 🔥 SEO -->
+    <title>Bu AmerikaUZ - Amerika yangiliklari, visa va immigratsiya</title>
+
+    <meta name="description" content="Amerika yangiliklari, visa olish, immigratsiya va ish imkoniyatlari haqida eng so‘nggi ma'lumotlar.">
+
+    <meta name="keywords" content="amerika, usa, visa, immigratsiya, ish, yangiliklar, green card">
+
+    <meta name="author" content="Bu AmerikaUZ">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- 📱 MOBILE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 🔗 SOCIAL -->
+    <meta property="og:title" content="Bu AmerikaUZ">
+    <meta property="og:description" content="Amerika yangiliklari va visa ma'lumotlari">
+    <meta property="og:type" content="website">
 
     <style>
         html { scroll-behavior: smooth; }
@@ -15,7 +31,6 @@
             transition: 0.3s;
         }
 
-        /* 🔥 NAVBAR */
         .navbar {
             position: sticky;
             top: 0;
@@ -62,7 +77,6 @@
             cursor:pointer;
         }
 
-        /* 🔗 MENU LINKS */
         .menu-links {
             text-align: center;
             margin-top: 10px;
@@ -79,7 +93,6 @@
             text-decoration: underline;
         }
 
-        /* 📂 CATEGORY */
         .categories {
             margin-top: 10px;
             display: flex;
@@ -100,14 +113,12 @@
             background: red !important;
         }
 
-        /* 📦 CONTENT */
         .container {
             max-width: 900px;
             margin: 20px auto;
             padding: 0 15px;
         }
 
-        /* 📰 CARD */
         .article-card {
             background: white;
             border-radius: 12px;
@@ -134,7 +145,6 @@
             text-align: center;
         }
 
-        /* 🔥 FOOTER */
         .footer {
             background: #111;
             color: white;
@@ -143,7 +153,6 @@
             margin-top: 40px;
         }
 
-        /* 🔝 BACK TO TOP */
         #topBtn {
             position: fixed;
             bottom: 20px;
@@ -157,7 +166,6 @@
             cursor: pointer;
         }
 
-        /* 🌙 DARK MODE */
         body.dark {
             background: #121212;
             color: white;
@@ -171,7 +179,6 @@
             background: #111;
         }
 
-        /* 📱 MOBILE */
         @media (max-width: 600px) {
             .nav-top {
                 flex-direction: column;
@@ -190,10 +197,9 @@
 
 <body>
 
-<!-- 🔥 NAVBAR -->
 <div class="navbar">
 
-    <h1>Бу АмерикаУЗ®</h1>
+    <h1>Bu AmerikaUZ</h1>
 
     <div class="nav-top">
         <form method="get" class="search-box">
@@ -204,13 +210,11 @@
         <button onclick="toggleDark()" id="darkBtn">🌙</button>
     </div>
 
-    <!-- 🔗 MENU -->
     <div class="menu-links">
-        <a href="{% url 'contact' %}">📩 Contact</a>
-        <a href="{% url 'support' %}">🆘 Support</a>
+        <a href="{% url 'contact' %}">Contact</a>
+        <a href="{% url 'support' %}">Support</a>
     </div>
 
-    <!-- 📂 CATEGORY -->
     <div class="categories">
         <a href="?" class="{% if not selected_category %}active-category{% endif %}">Barchasi</a>
 
@@ -224,14 +228,13 @@
 
 </div>
 
-<!-- 📰 CONTENT -->
 <div class="container">
 
     {% for article in articles %}
         <div class="article-card">
 
             {% if article.image %}
-                <img src="{{ article.image.url }}" class="article-image">
+                <img src="{{ article.image.url }}" class="article-image" alt="{{ article.title }}">
             {% endif %}
 
             <h2>
@@ -248,26 +251,22 @@
 
         </div>
     {% empty %}
-        <p class="empty">🔍 Hech narsa topilmadi</p>
+        <p class="empty">Hech narsa topilmadi</p>
     {% endfor %}
 
 </div>
 
-<!-- 🔥 FOOTER -->
 <div class="footer">
-    <p>© 2026 Bu AmerikaUZ | All rights reserved</p>
+    <p>© 2026 Bu AmerikaUZ</p>
 </div>
 
-<!-- 🔝 TOP BUTTON -->
 <button onclick="topFunction()" id="topBtn">↑</button>
 
 <script>
-// 🌙 DARK MODE
 function toggleDark() {
     document.body.classList.toggle("dark");
 }
 
-// 🔝 TOP BUTTON
 let btn = document.getElementById("topBtn");
 
 window.onscroll = function() {
