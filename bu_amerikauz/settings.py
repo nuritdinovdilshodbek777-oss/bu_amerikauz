@@ -7,7 +7,11 @@ SECRET_KEY = 'django-insecure-&kcw42m$qlx9st#%i=w==+wu=q2^hibbwg#!30t6%8&9_yayc)
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['bu-amerikauz.onrender.com']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'bu-amerikauz.onrender.com'
+]
 
 # 📦 Apps
 INSTALLED_APPS = [
